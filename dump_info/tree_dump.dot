@@ -1,0 +1,11 @@
+digraph   
+{
+rankdir = ""
+splines = "(null)"
+
+node_stat [margin = "0.3*0.3", style = "filled", shape = "record", fillcolor = "#8DB6CD" label = "capacity = 0 | size = 0 | head point = 0 | tail point = 0"]
+{rank = source; node_stat}
+
+node0x4a4c040 [shape = "Mrecord", fillcolor = "#FA8072", style = "filled", fontcolor = "white", fontname = "Calibri", color = "white", label = "{cell = 0x4a4c040\n | {value = 1 |right = 0x4a4c100 |left = 0x4a4c0a0}}"]
+node0x4a4c0a0 [shape = "Mrecord", fillcolor = "#FA8072", style = "filled", fontcolor = "white", fontname = "Calibri", color = "white", label = "{cell = 0x4a4c0a0\n | {value = 2 |right = 0x4a4c1c0 |left = 0x4a4c160}}"]
+node0x4a4c160 [shape = "Mrecord", fillcolor = "#FA8072", style = "filled", fontcolor = "white", fontname = "Calibri", color = "white", label = "{cell = 0x4a4c160\n | {value = 4 |right = (nil) |left = (nil)}}"]
