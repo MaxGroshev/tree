@@ -58,8 +58,29 @@ tree_node_t* tree_link_r (tree_node_t* parent, tree_node_t* child)
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+tree_node_t* tree_search  (tree_node_t* node)
+{
+
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+tree_node_t* tree_remove  (tree_t* pine, tree_node_t* node)
+{
+    MY_ASSERT (node != NULL);
+    if (node->left == NULL && node->right == NULL)
+    {
+        free (node);
+        pine->size--;
+    }
+    return node;
+}
+
+
 tree_node_t* tree_delete (tree_node_t* tree_root)
 {
+    MY_ASSERT (tree_root != NULL);
+    //printf ("%d\n", tree_root->value);
     if (tree_root->left != NULL)
     {
         tree_delete (tree_root->left);

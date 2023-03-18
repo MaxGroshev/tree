@@ -21,6 +21,12 @@ int main ()
     tree_link_r (node2,     node6);
     tree_link_l (node3,     node7);
 
+    //printf ("%p %d\n", node2->right, node2->right->value);
+    //tree_remove  (&pine, node6);
+    //free  (node2->right);
+    //free  (node6);
+    // printf ("%p \n", node6);
+
     graph_dump  (&pine);
     tree_delete (pine.root);
 }
