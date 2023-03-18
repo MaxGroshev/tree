@@ -56,8 +56,8 @@ void print_def_info (FILE* graphviz, dump_graph_t* graph_dump_set)
     fprintf (graphviz, "rankdir = \"%s\"\n",   graph_dump_set->orientation);
     fprintf (graphviz, "splines = \"%s\"\n\n", graph_dump_set->splines);
 
-    fprintf (graphviz, "node_stat [margin = \"0.3*0.3\", style = \"filled\", shape = \"record\", fillcolor = \"#8DB6CD\" label = \"capacity = %ld | size = %ld | head point = %ld | tail point = %ld\"]\n",
-                        graph_dump_set->info.capacity, graph_dump_set->info.size, graph_dump_set->info.head, graph_dump_set->info.tail);
+    fprintf (graphviz, "node_stat [margin = \"0.3*0.3\", style = \"filled\", shape = \"record\", fillcolor = \"#8DB6CD\" label = \" size = %ld | root point = %p\"]\n",
+    graph_dump_set->info.size, graph_dump_set->info.head);
     fprintf (graphviz, "{rank = source; node_stat}\n\n");
 }
 

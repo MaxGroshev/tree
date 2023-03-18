@@ -19,7 +19,8 @@ int main ()
     tree_link_r (node1,     node4);
     tree_link_l (node2,     node5);
     tree_link_r (node2,     node6);
+    tree_link_l (node3,     node7);
 
     graph_dump  (&pine);
-    tree_delete (&pine);
+    tree_delete (pine.root);
 }

@@ -58,7 +58,15 @@ tree_node_t* tree_link_r (tree_node_t* parent, tree_node_t* child)
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tree_node_t* tree_delete (tree_t* pine)
+tree_node_t* tree_delete (tree_node_t* tree_root)
 {
-    free (pine->root);
+    if (tree_root->left != NULL)
+    {
+        tree_delete (tree_root->left);
+    }
+    if (tree_root->right != NULL)
+    {
+        tree_delete (tree_root->right);
+    }
+    free (tree_root);
 }

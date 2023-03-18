@@ -34,14 +34,14 @@ struct data_stat_t
 {
     size_t capacity;
     size_t size;
-    size_t head;
+    int*   head;
     size_t tail;
 };
 
 struct dump_graph_t
 {
-    const char*         orientation = "LR";
-    const char*         splines;
+    const char*         orientation = "";
+    const char*         splines = "true";
     struct node_t*      nodes;
     struct edge_t*      edges;
     struct data_stat_t  info;

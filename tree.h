@@ -37,4 +37,4 @@ void         graph_dump   (tree_t* pine);
 tree_node_t* tree_print   (FILE* graphviz, dump_graph_t* graph_dump_set ,tree_node_t* parent);
 
 
-tree_node_t* tree_delete (tree_t* pine);
+tree_node_t* tree_delete (tree_node_t* tree_root);
