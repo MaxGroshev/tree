@@ -8,33 +8,26 @@ void graph_dump (tree_t* pine)
     graph_dump_set.orientation   = "";
     init_graph (graphviz, &graph_dump_set);
 
-    tree_node_t* current = pine->root;
-    tree_print (graphviz, &graph_dump_set, current, current->left);
+    tree_print  (graphviz, &graph_dump_set, pine->root);
 
     run_graphviz (graphviz, &graph_dump_set);
 
     fclose (graphviz);
 }
 
-tree_node_t* tree_print (FILE* graphviz, dump_graph_t* graph_dump_set, tree_node_t* parent, tree_node_t* child)
+tree_node_t* tree_print (FILE* graphviz, dump_graph_t* graph_dump_set, tree_node_t* parent)
 {
-    make_node (graphviz, graph_dump_set, &parent->value, graph_dump_set->nodes[0], &parent->right->value, &parent->left->value, parent->value);
-    if (parent->left == NULL)
-    {
-        if   (parent->right == NULL) return NULL;
-        else
-        {
-            parent = parent->right;
-            tree_print (graphviz, graph_dump_set, parent, parent->right);
-        }
-    }
-    else
-    {
-        parent = parent->left;
-        tree_print (graphviz, graph_dump_set, parent, parent->left);
-    }
-    // make_node (graphviz, &graph_dump_set, &current->data, graph_dump_set.nodes[1], &current->next->data, &current->prev->data, current->data);
-    // make_edge (graphviz, &graph_dump_set, &current->data, &current->prev->data, graph_dump_set.edges[edge_count]);
+    printf ("%d", parent->value);
+    make_node (graphviz, graph_dump_set, &parent->value, *graph_dump_set->nodes, &parent->right->value, &parent->left->value, parent->value);
 
-    //if (parent->)
+    if (parent->left != NULL)
+    {
+        make_edge  (graphviz, graph_dump_set, &parent->value, &parent->left->value, *graph_dump_set->edges);
+        tree_print (graphviz, graph_dump_set, parent->left);
+    }
+    if (parent->right != NULL)
+    {
+        make_edge  (graphviz, graph_dump_set, &parent->value, &parent->right->value, *graph_dump_set->edges);
+        tree_print (graphviz, graph_dump_set, parent->right);
+    }
 }

@@ -1,6 +1,6 @@
 TARGET = tree
 CC=gcc
-CFLAGS = -c -std=c++11
+CFLAGS = -c -std=c++11 -
 
 PREF_OBJ  = ./obj/
 PREF_STAT = ./dump_info/
@@ -16,7 +16,7 @@ $(TARGET):  $(OBJ)
 	$(CC) -o $(TARGET) $(OBJ)
 
 $(PREF_OBJ)%.o : %.cpp
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o  $@
 
 
 valgrind:

@@ -10,9 +10,9 @@
 struct node_t
 {
     const char* shape     = "Mrecord";
-    const char* fillcolor = "#FA8072";
+    const char* fillcolor = "#eed8cd";
     const char* style     = "filled";
-    const char* fontcolor = "white";
+    const char* fontcolor = "#31032A";
     const char* fontname  = "Calibri";
     const char* color     = "white";
     const char* margin    = "";
@@ -22,11 +22,11 @@ struct node_t
 struct edge_t
 {
     const char* constraint = "true";
-    const char* fillcolor  = "";
+    const char* fillcolor  = "#8DB6CD";
     const char* style      = "";
     const char* fontcolor  = "";
     const char* fontname   = "Calibri";
-    const char* color      = "black";
+    const char* color      = "#8DB6CD";
     const char* label      = "";
 };
 
