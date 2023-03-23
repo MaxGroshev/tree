@@ -54,10 +54,10 @@ struct dump_graph_t
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void init_graph      (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set);
-void make_node       (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set, int* node_address, struct node_t nodes, int* right, int* left, int value);
-void make_edge       (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set, int* node_from, int* node_to, struct edge_t edges);
+void init_graph      (FILE* graphviz, dump_graph_t* graph_dump_set);
+void make_node       (FILE* graphviz, dump_graph_t* graph_dump_set, int* node_address, struct node_t nodes, int* right, int* left, int value);
+void make_edge       (FILE* graphviz, dump_graph_t* graph_dump_set, int* node_from, int* node_to, struct edge_t edges);
 void resize_struct   (dump_graph_t* graph_dump_set);
-void print_def_info  (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set);
+void print_def_info  (FILE* graphviz, dump_graph_t* graph_dump_set);
 void run_graphviz    (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set);
 

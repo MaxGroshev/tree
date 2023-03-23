@@ -6,9 +6,9 @@ tree_node_t* constructor (tree_t* pine, tree_type value)
 
     pine->size = 1;
     pine->root = (tree_node_t*) calloc (pine->size, sizeof (tree_node_t));
-    pine->html_logs = fopen ("./dump_info/tree_dump.html", "a");
-    fclose (pine->html_logs);
-    MY_ASSERT (pine->root != NULL);
+    pine->html_logs = fopen ("./dump_info/tree_dump.html", "w");
+    MY_ASSERT (pine->root != NULL && pine->html_logs != NULL);
+    fprintf   (pine->html_logs, "<pre>\n\n<font color = #8DB6CD size=6>Tree was successfully created root (%p)</font>\n\n", pine->root);
 
     pine->root->value = value;
     pine->root->left  = NULL;
@@ -27,31 +27,36 @@ tree_node_t* tree_create (tree_t* pine, tree_type value)
     tmp_node->left  = NULL;
     tmp_node->right = NULL;
 
+    fprintf (pine->html_logs, "<font color = #70DB53 size=4>Created node: address (%p) | value  (%d)</font>\n\n", tmp_node, tmp_node->value);
     return  tmp_node;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tree_node_t* tree_link_l (tree_node_t* parent, tree_node_t* child)
+tree_node_t* tree_link_l (tree_t* pine, tree_node_t* parent, tree_node_t* child)
 {
     MY_ASSERT (parent != NULL && child != NULL);
 
     if (parent->left == NULL)
     {
         parent->left  = child;
+        fprintf (pine->html_logs, "<font color = #6018CF size=4>Created edge: parent address (%p) | value (%d); left  (%p) | value (%d)</font>\n\n",
+                                                                              parent,            parent->value, child, child->value);
         return parent->left;
     }
     fprintf (stderr, "Impossible to add node to not terminal\n");
     return NULL;
 }
 
-tree_node_t* tree_link_r (tree_node_t* parent, tree_node_t* child)
+tree_node_t* tree_link_r (tree_t* pine, tree_node_t* parent, tree_node_t* child)
 {
     MY_ASSERT (parent != NULL && child != NULL);
 
     if (parent->right == NULL)
     {
         parent->right = child;
+        fprintf (pine->html_logs, "<font color = #6018CF size=4>Created edge: parent address (%p) | value (%d); right  (%p) | value (%d)</font>\n\n",
+                                                                              parent,            parent->value, child, child->value);
         return parent->right;
     }
     fprintf (stderr, "Impossible to add node to not terminal\n");
@@ -115,22 +120,30 @@ tree_node_t* tree_remove  (tree_t* pine, tree_node_t* node)
         free (ret_node->left);
         ret_node->left = NULL;
     }
+    fprintf (pine->html_logs, "<font color = oranged size=4>Node was removed: address (%p) </font>\n\n", node);
     return node;
 }
 
-tree_node_t* tree_delete (tree_node_t* tree_root)
+tree_node_t* tree_delete (tree_t* pine, tree_node_t* tree_root)
 {
     MY_ASSERT (tree_root != NULL);
     //printf ("%d\n", tree_root->value);
     if (tree_root->left != NULL)
     {
-        tree_delete (tree_root->left);
+        tree_delete (pine, tree_root->left);
     }
     if (tree_root->right != NULL)
     {
-        tree_delete (tree_root->right);
+        tree_delete (pine, tree_root->right);
     }
-    free (tree_root);
+    free    (tree_root);
+
+    fprintf (pine->html_logs, "<font color = red size=4>Node was deleted: address (%p) </font>\n\n", tree_root);
+    if (tree_root == pine->root)
+    {
+        fprintf (pine->html_logs, "<font color = #8DB6CD size=6>Tree was cleared and deleted </font>\n\n");
+        fclose  (pine->html_logs);
+    }
 
     return NULL;
 }

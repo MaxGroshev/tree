@@ -31,13 +31,12 @@ struct tree_t
 tree_node_t* constructor (tree_t* pine, tree_type value);
 tree_node_t* tree_create (tree_t* pine, tree_type value);
 
-tree_node_t* tree_link_l (tree_node_t* parent, tree_node_t* child);
-tree_node_t* tree_link_r (tree_node_t* parent, tree_node_t* child);
+tree_node_t* tree_link_l (tree_t* pine, tree_node_t* parent, tree_node_t* child);
+tree_node_t* tree_link_r (tree_t* pine, tree_node_t* parent, tree_node_t* child);
 tree_node_t* tree_remove (tree_t* pine, tree_node_t* node);
 tree_node_t* tree_search (tree_node_t* tree_root, tree_node_t* node);
 
 void         graph_dump   (tree_t* pine);
-tree_node_t* tree_print   (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set ,tree_node_t* parent);
-void         print_html_logs (const char* tree_log);
+tree_node_t* tree_print   (FILE* graphviz, dump_graph_t* graph_dump_set ,tree_node_t* parent);
 
-tree_node_t* tree_delete (tree_node_t* tree_root);
+tree_node_t* tree_delete (tree_t* pine, tree_node_t* tree_root);

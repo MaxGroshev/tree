@@ -15,15 +15,15 @@ int main ()
     //tree_node_t* node8 = tree_create (&pine, 8);
     tree_node_t* node9 = tree_create (&pine, 9);
 
-    tree_link_l (pine.root, node1);
-    tree_link_r (pine.root, node2);
-    tree_link_l (node1,     node3);
-    tree_link_r (node1,     node4);
-    tree_link_l (node2,     node5);
-    tree_link_r (node2,     node9);
-    tree_link_l (node3,     node7);
+    tree_link_l (&pine, pine.root, node1);
+    tree_link_r (&pine, pine.root, node2);
+    tree_link_l (&pine, node1,     node3);
+    tree_link_r (&pine, node1,     node4);
+    tree_link_l (&pine, node2,     node5);
+    tree_link_r (&pine, node2,     node9);
+    tree_link_l (&pine, node3,     node7);
     //tree_link_r (node5,     node8);
-    tree_link_l (node5,     node6);
+    tree_link_l (&pine, node5,     node6);
     // tree_node_t* ret_node = tree_search (pine.root, node9);
     // MY_ASSERT (ret_node != NULL);
     //printf ("%d \n", ret_node->value);
@@ -34,5 +34,6 @@ int main ()
 
 
     graph_dump  (&pine);
-    tree_delete (pine.root);
+
+    tree_delete (&pine, pine.root);
 }
