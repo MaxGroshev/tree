@@ -10,13 +10,11 @@ OBJ    = $(patsubst %.cpp, $(PREF_OBJ)%.o, $(SRC)) #turn .cpp into .o
 
 all:     $(TARGET)
 
-
-
 $(TARGET):  $(OBJ)
 	$(CC) -o $(TARGET) $(OBJ)
 
 $(PREF_OBJ)%.o : %.cpp
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -L. -lgraph_lib -o $@
 
 
 valgrind:

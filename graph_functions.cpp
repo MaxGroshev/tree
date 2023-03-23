@@ -1,8 +1,8 @@
 #include "tree.h"
 
-void init_graph (FILE* graphviz, dump_graph_t* graph_dump_set)
+void init_graph (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set)
 {
-    MY_ASSERT (graphviz != NULL && graph_dump_set != NULL)
+    MY_ASSERT (graphviz != NULL && html_logs != NULL)
     graph_dump_set->edge_capacity = 10;
     graph_dump_set->node_capacity = 10;
     graph_dump_set->node_size     = 0;
@@ -22,35 +22,39 @@ void init_graph (FILE* graphviz, dump_graph_t* graph_dump_set)
         graph_dump_set->edges[i] = init_struct_edge;
     }
 
-    print_def_info (graphviz, graph_dump_set);
+    print_def_info (graphviz, html_logs, graph_dump_set);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void make_node (FILE* graphviz, dump_graph_t* graph_dump_set, int* node_address, struct node_t nodes, int* right, int* left, int value)
+void make_node (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set, int* node_address, struct node_t nodes, int* right, int* left, int value)
 {
     if (graph_dump_set->node_capacity <= graph_dump_set->node_size + 1) resize_struct (graph_dump_set);
-
 
     fprintf (graphviz, "node%p [shape = \"%s\", fillcolor = \"%s\", style = \"%s\", fontcolor = \"%s\", fontname = \"%s\", color = \"%s\", label = \"{cell = %p\\n %s| {value = %d |left = %p |right = %p}}\"]\n",
                 node_address, nodes.shape,  nodes.fillcolor,    nodes.style,    nodes.fontcolor,    nodes.fontname,    nodes.color,  node_address, nodes.label ,         value,     left,      right      );
     graph_dump_set->node_size++;
+
+    fprintf (html_logs, "<font color = ""#70DB53"" size=""5"">Made node: node (%p)  value (%d) | left (%p)| right (%p)</font>\n",
+                                                                      node_address, value,       left,      right);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void make_edge (FILE* graphviz, dump_graph_t* graph_dump_set, int* node_from, int* node_to, struct edge_t edges)
+void make_edge (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set, int* node_from, int* node_to, struct edge_t edges)
 {
     if (graph_dump_set->edge_capacity <= graph_dump_set->edge_size + 1) resize_struct (graph_dump_set);
 
     fprintf (graphviz, "node%p -> node%p [color = \"%s\", style = \"%s\", constraint = %s, fillcolor = \"%s\",   fontcolor = \"%s\", fontname = \"%s\", label = \"%s\"];\n",
                         node_from, node_to, edges.color,   edges.style,    edges.constraint, edges.fillcolor, edges.fontcolor,    edges.fontname,     edges.label);
     graph_dump_set->edge_size++;
+
+    fprintf (html_logs, "<font color = ""#6018CF"" size=""5"">Made edge: node (%p) -> node (%p)</font>\n\n", node_from, node_to);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void print_def_info (FILE* graphviz, dump_graph_t* graph_dump_set)
+void print_def_info (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set)
 {
     fprintf (graphviz, "digraph   \n{\n");
     fprintf (graphviz, "rankdir = \"%s\"\n",   graph_dump_set->orientation);
@@ -59,6 +63,8 @@ void print_def_info (FILE* graphviz, dump_graph_t* graph_dump_set)
     fprintf (graphviz, "node_stat [margin = \"0.3*0.3\", style = \"filled\", shape = \"record\", fillcolor = \"#8DB6CD\" label = \" size = %ld | root point = %p\"]\n",
     graph_dump_set->info.size, graph_dump_set->info.head);
     fprintf (graphviz, "{rank = source; node_stat}\n\n");
+
+    fprintf (html_logs, "<pre>\n\n<font color = ""#8DB6CD"" size=""6"">Stat box is created\n\nPrint of nodes:</font>\n");
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,10 +105,15 @@ void resize_struct (dump_graph_t* graph_dump_set)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void run_graphviz  (FILE* graphviz, dump_graph_t* graph_dump_set)
+void run_graphviz  (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_set)
 {
     fprintf (graphviz, "}\n");
     free    (graph_dump_set->nodes);
     free    (graph_dump_set->edges);
+
+    fprintf (html_logs, "\n\n\n<font color = ""#8DB6CD"" size=""6"">Here is the print of your tree</font>\n");
+    system  ("dot ./dump_info/tree_dump.dot -T png -o ./dump_info/tree_dump.png");
     //system  ("xdg-open ./dump_info/list_dump.pdf");
+    fprintf (html_logs, "<img src = ""tree_dump.png"" width=""800"" height=""350"">\n");
+    fclose  (html_logs);
 }
