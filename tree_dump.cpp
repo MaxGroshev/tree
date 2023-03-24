@@ -12,7 +12,7 @@ void graph_dump (tree_t* pine)
     tree_print (graphviz, &graph_dump_set, pine->root);
 
     run_graphviz (graphviz, pine->html_logs, &graph_dump_set);
-    fclose (graphviz);
+    fclose       (graphviz);
 }
 
 tree_node_t* tree_print (FILE* graphviz, dump_graph_t* graph_dump_set, tree_node_t* parent)

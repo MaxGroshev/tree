@@ -6,7 +6,7 @@ tree_node_t* constructor (tree_t* pine, tree_type value)
 
     pine->size = 1;
     pine->root = (tree_node_t*) calloc (pine->size, sizeof (tree_node_t));
-    pine->html_logs = fopen ("./dump_info/tree_dump.html", "w");
+    pine->html_logs = fopen ("./dump_info/tree_dump.html", "a");
     MY_ASSERT (pine->root != NULL && pine->html_logs != NULL);
     fprintf   (pine->html_logs, "<pre>\n\n<font color = #8DB6CD size=6>Tree was successfully created root (%p)</font>\n\n", pine->root);
 
@@ -28,6 +28,7 @@ tree_node_t* tree_create (tree_t* pine, tree_type value)
     tmp_node->right = NULL;
 
     fprintf (pine->html_logs, "<font color = #70DB53 size=4>Created node: address (%p) | value  (%d)</font>\n\n", tmp_node, tmp_node->value);
+    graph_dump (pine);
     return  tmp_node;
 }
 

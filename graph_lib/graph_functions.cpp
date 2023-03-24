@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "graphviz.h"
 
 void init_graph (FILE* graphviz, dump_graph_t* graph_dump_set)
 {
@@ -108,5 +108,4 @@ void run_graphviz  (FILE* graphviz, FILE* html_logs, dump_graph_t* graph_dump_se
     system  ("dot ./dump_info/tree_dump.dot -T png -o ./dump_info/tree_dump.png");
     //system  ("xdg-open ./dump_info/list_dump.pdf");
     fprintf (html_logs, "<img src = ""tree_dump.png"" width=""800"" height=""350"">\n");
-    printf ("hr");
 }

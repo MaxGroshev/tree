@@ -1,21 +1,26 @@
 TARGET = tree
-CC=gcc
+CC     = gcc
 CFLAGS = -c -std=c++11
 
+GR_DIR    = ./graph_lib/
 PREF_OBJ  = ./obj/
 PREF_STAT = ./dump_info/
 
-SRC    = $(wildcard *.cpp)                         #include of all files with .cpp
-OBJ    = $(patsubst %.cpp, $(PREF_OBJ)%.o, $(SRC)) #turn .cpp into .o
+#Common files
+SRC    = $(wildcard *.cpp )                            #include of all files with .cpp
+OBJ    = $(patsubst %.cpp, $(PREF_OBJ)%.o, $(SRC))     #turn .cpp into .o
+#Library files
+GR_LIB = $(wildcard $(GR_DIR)*.cpp)
+OBJ_LIB= $(patsubst $(PREF_OBJ)%.cpp, %.o, $(GR_LIB))
+
 
 all:     $(TARGET)
 
-$(TARGET):  $(OBJ)
-	$(CC) -o $(TARGET) $(OBJ)
+$(TARGET):  $(OBJ) $(OBJ_LIB)
+	$(CC) -o $(TARGET) $(OBJ) $(OBJ_LIB)
 
 $(PREF_OBJ)%.o : %.cpp
-	$(CC) $(CFLAGS) $< -L. -lgraph_lib -o $@
-
+	$(CC) $(CFLAGS) $< -o $@
 
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes ./$(TARGET)
